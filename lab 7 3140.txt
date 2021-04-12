@@ -1,0 +1,81 @@
+Lab 7
+
+For this lab I wrote a recursive function that returns if an input is a palindrome. This was a problem I have done several times in java in earlier semesters and popular leetcode problems for interviews.
+
+In java when an input is read, it runs through a simple algorithm including a series of for loops and if statements and output whether or not itfs a palindrome or not. Similarly in Scheme I can accept an input, have it run through a variations of conditional statements and output whether its true or false. However, in Scheme, I donft need a Classloader, nothing is stored in memory or in a heap, no garbage collection, variable declaration et cetc. Interestingly with Scheme, the function itself and the name of the function are separate entities. The statement bodies that execute logic are encapsulated within Procedure Calls. A basic procedure callfs syntax looks like:
+
+(procedure-name arg1 arg2 arg3)
+
+* Parenthesis starts and ends a call
+* Arguments separated by spaces
+* Dashes can be part of names
+
+Examples from lecture also follow this syntax i.e (* (+ 4 2) 2)
+
+Reference: https://www.tutorialspoint.com/lisp/lisp_program_structure.htm
+
+To find whether or not an input is a palindrome or not in Scheme I used a sub function that takes list as a input and returns reverse of a list if the reverse input is the same as the original input. i.e check:
+
+reverse '(a b c)) ---> '(c b a)
+
+Begin with the procedure call for a function: 
+
+(define (palindrome ls)
+
+Also defining another function: 
+
+(define (reverse ls)
+
+The input will will run through palindrome and palindrome will run through reverse then do another procedure call to perform the check:
+
+(define (check-palindrome ls1 ls2)
+
+If the list is not empty then append tail and call reverse then takes list as input and checks for palindrome. car takes a list as argument, and returns its first element. cdr takes a list as argument, and returns a list without the first element. list takes any number of arguments and returns a list with the arguments as member elements of the list. append merges two or more list into one. reverse takes a list and returns a list with the top elements in reverse order. 
+
+(append (reverse (cdr ls)) (list (car ls))
+
+Lastly, it takes the list as input and checks if its a palindrome. It displays whether its true or false. cond is most commonly used to permit branching. Each clause within the cond statement consists of a conditional test and an action to be performed. null takes one argument and returns t if the argument evaluates to nil, otherwise it returns nil.
+
+
+(define (check-palindrome ls1 ls2)
+(cond ((null? ls1)'true)
+
+equal takes two arguments and returns t if they are structurally equal or nil otherwise. 
+
+((equal? (car ls1) (car ls2)) (check-palindrome (cdr ls1) (cdr ls2)))
+
+Recursive function to output etruef or efalsef if input is a palindrome via Scheme on Web Browser from the lecture slide (https://repl.it/languages/scheme)
+
+(define (reverse ls)
+(cond ((null? ls) '())
+(else (append (reverse (cdr ls)) (list (car ls)))))) 
+
+(define (palindrome ls)
+(check-palindrome ls (reverse ls)))
+(define (check-palindrome ls1 ls2)
+(cond ((null? ls1)'true)
+((equal? (car ls1) (car ls2)) (check-palindrome (cdr ls1) (cdr ls2)))
+(else 'false)))
+(display (palindrome '(r a r)))
+(newline)
+
+Unlike Java the program can be written in time complexity of O(n). There arenft any for loops with O(n^2). If I were to write in java, it would look something like:
+
+import java.util.*;
+
+class Palindrome
+{   public static void main(String args[])  
+      {     
+String original, reverse="";      
+Scanner in = new Scanner(System.in);
+System.out.println("Enter a string to check if it is a palindrome");
+original = in.nextLine();
+int length = original.length();
+for ( int i = length - 1 ; i >= 0 ; i-- )
+reverse = reverse + original.charAt(i);
+if (original.equals(reverse))
+System.out.println("Entered string is a palindrome.");
+else 
+System.out.println("Entered string is not a palindrome.");    
+      }
+}  
